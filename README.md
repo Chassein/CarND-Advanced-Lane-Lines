@@ -117,15 +117,9 @@ First, note that no points form the black line are chosen, beside their high hig
 
 ### 5 Computing the radius of curvature of the lane and the position of the vehicle with respect to center
 
-During the video creation process I stored for each frame the coefficients describing the polynomial of the left and right lane line. After this process, I compute from these coefficients the lane radius and the offset from the center of the lane. I used the formulas and parameters (which are necessary to transform the values from pixel space to real world) as proposed in the Udactiy lecture notes. 
+During the video I compute the lane curvature from the coefficients which describe the left and right lane lines. I used the formulas and parameters (which are necessary to transform the values from pixel space to real world) as proposed in the Udactiy lecture notes. To compute the offset, I evaluate the two parabels describing the lane lines at the bottom of the picture and average the corresponding values. To obtained the offset (in pixel space) I substracted the obtained value from the middle of the picture. Last, I convert the pixel value to m using the proposed parameters.
 
-This is the result for the `project_video.mp4`. This plot shows on the left the curvature dervied form the left line and on the right the curvature of the right line. Note that in this video some parts of the road are really close or exactly straight, in this case the radius is infinite, therefore I cut of the plot by a radius of 2000m.
-
-![alt text][image7]
-
-The next plot shows the computed offset from the center (in meters) which nicely matches the observations in the video.
-
-![alt text][image8]
+To draw the computed values onto each frame of the video I used the PIL library. Since the lane lines tend to be straight (which results in an infinite curvature radius) I clipped the computed values at 9999 m.
 
 ### 6 Drawing the Lane
 
