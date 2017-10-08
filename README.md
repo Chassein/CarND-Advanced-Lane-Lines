@@ -146,22 +146,22 @@ The first two videos are recorded in rather good circumstances - compared to the
 
 To adresse these points I did the following adaptions to my pipeline
 
-** The road is really curvy, hence the visible part of the lane line is significantly shorter **
+**The road is really curvy, hence the visible part of the lane line is significantly shorter**
 
 * Instead of taking the complete corridor of the last line, I took only the lower half of the corridor
 * I increased the belive of the new lane line to avoid for quicker adaptions to the curvy road
 
-** The road is partially very bright and sometimes very dark **
+**The road is partially very bright and sometimes very dark**
 
 * Instead of using color and gradient information over the complete corridor, I split the corridor in smaller sections. In each section, I first try to find enough bright points, if this fails I use additional gradient information. In this way, I can cope with siutations where parts of the lane line are hidden under shadows
 * If one part of the corridor is filled almost completly by bright points, this has nothing to do with the appareance of a lane line (the image is just very bright at this position). Therefore, I decided to remove the bright points of this section to make the fitting procedure not over excited about the bright part
 
-** At some parts of the road only the left or right lane line is clearly visible **
+**At some parts of the road only the left or right lane line is clearly visible**
 
 * To decide how certain the model is about position of a lane line, I developed a score function for each lane line. I use exponential smoothing to track the score of each lane line.
 * It may happen that one of the two lane lines, is not correctly identified. Therefore, I developed a function to check if the two lane lines are compatible (describing a meaningfull road). If the lines are not compatible, I evaluate different plausible scenarios and choose the best one (evaluated with respect to the previously mentioned score function).
 
-**  At one point the lane line is not even visible in the video **
+**At one point the lane line is not even visible in the video**
 * To handle this special situation, I checked if too few points are describing one line, in this case I used the other line to compute the line.
 
 In summary, many (very video specific) functions and parameter choices were made, which produce a quite reasonable solution for the third video. However, the found lane lines are still not perfect.
